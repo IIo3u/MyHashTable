@@ -6,8 +6,8 @@
 
 
 using namespace std;
-const int INITIAL_TABLE_SIZE = 10;
-const int PRIME = 7;
+const int FIRST_SIZE = 10;
+
 
 class Person {
 public:
@@ -86,7 +86,7 @@ public:
     }
 
 
-    HashTable() : currentSize(0), tableSize(INITIAL_TABLE_SIZE) {
+    HashTable() : currentSize(0), tableSize(FIRST_SIZE) {
         table = new Person * [tableSize];
         for (int i = 0; i < tableSize; ++i) {
             table[i] = nullptr;
@@ -213,7 +213,9 @@ public:
 
 
     void printTable() {
+        cout << "=============================================================================================" << endl;
         cout << "Current Table:" << "(Current Size: " << currentSize << ", Table Size: " << tableSize << ")" << endl;
+        cout << "=============================================================================================" << endl;
 
         for (int i = 0; i < tableSize; ++i) {
             Person* Element = table[i];
@@ -227,7 +229,7 @@ public:
             }
             
         }
-        cout << endl;
+        cout << "==============================================================================================" << endl;
     }
 
     
@@ -308,24 +310,56 @@ int main()
 
     inputFile.close();
 
-
+    CHOICE:
     hashTable.printTable();
-
+    cout << "If you wanna Find some, type F;" << endl;
+    cout << "If you wanna Delete some, type D;" << endl;
+    cout << "Choose what you are gonna do (choose wisely): " ;
+    char choice;
+    cin >> choice;
+    if (choice == 'F') { goto FIND; }
+    if (choice == 'D') { goto DELETE; }
+    FIND:
     int searchKey;
-    cout << "Enter the key you want to find: ";
+    cout << "Enter the key of element you want to find: ";
     cin >> searchKey;
 
     cout << "Search result for key " << searchKey << ": " << hashTable.search(searchKey)->FirstName << " " << hashTable.search(searchKey)->SecondName << " " << hashTable.search(searchKey)->LastName << endl;
-    
+    cout << "Continue? (y/n)" << endl;
+    cin >> choice;
+    if (choice == 'y') 
+    {
+        system("cls");
+        goto CHOICE;
+    }
+    if (choice == 'n')
+    {
+        goto EXIT;
+    }
+
+    DELETE:
     int deleteKey;
     cout << "Enter the key you want to delete: ";
     cin >> deleteKey;
 
     hashTable.remove(deleteKey);
-    cout << "Record with key " << deleteKey << " deleted." << endl << endl;
-
+    system("cls");
+    
     hashTable.printTable();
+    cout << "Record with key " << deleteKey << " deleted." << endl << endl;
+    cout << "Continue? (y/n)" << endl;
+    cin >> choice;
+    if (choice == 'y')
+    {
+        system("cls");
+        goto CHOICE;
+    }
+    if (choice == 'n')
+    {
+        goto EXIT;
+    }
 
+    EXIT:
     return 0;
 }
 
