@@ -314,11 +314,42 @@ int main()
     hashTable.printTable();
     cout << "If you wanna Find some, type F;" << endl;
     cout << "If you wanna Delete some, type D;" << endl;
+    cout << "If you wanna Delete some, type A;" << endl;
     cout << "Choose what you are gonna do (choose wisely): " ;
     char choice;
+    int addKey;
+    string addFirstName;
+    string addSecondName;
+    string addLastName;
     cin >> choice;
     if (choice == 'F') { goto FIND; }
     if (choice == 'D') { goto DELETE; }
+    if (choice == 'A') { goto ADD; }
+    ADD:
+    cout << "Enter the Key of element you want to add:" << endl;
+    cin >> addKey;
+    cout << "Enter the First Name of element you want to add:" << endl; 
+    cin >> addFirstName;
+    cout << "Enter the Second Name of element you want to add:" << endl;  
+    cin >> addSecondName;
+    cout << "Enter the Last Name of element you want to add:" << endl;
+    cin >> addLastName;
+    hashTable.insert(addKey, addFirstName, addSecondName, addLastName);
+    system("cls");
+    hashTable.printTable();
+    cout << "Element succecifully added." << endl;
+    cout << "Continue? (y/n)" << endl;
+    cin >> choice;
+    if (choice == 'y')
+    {
+        system("cls");
+        goto CHOICE;
+    }
+    if (choice == 'n')
+    {
+        goto EXIT;
+    }
+
     FIND:
     int searchKey;
     cout << "Enter the key of element you want to find: ";
@@ -341,10 +372,8 @@ int main()
     int deleteKey;
     cout << "Enter the key you want to delete: ";
     cin >> deleteKey;
-
     hashTable.remove(deleteKey);
     system("cls");
-    
     hashTable.printTable();
     cout << "Record with key " << deleteKey << " deleted." << endl << endl;
     cout << "Continue? (y/n)" << endl;
